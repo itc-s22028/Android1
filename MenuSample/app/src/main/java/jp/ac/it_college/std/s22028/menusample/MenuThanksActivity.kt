@@ -2,6 +2,7 @@ package jp.ac.it_college.std.s22028.menusample
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import jp.ac.it_college.std.s22028.menusample.databinding.ActivityMainBinding
 import jp.ac.it_college.std.s22028.menusample.databinding.ActivityMenuThanks3Binding
@@ -28,6 +29,21 @@ class MenuThanksActivity : AppCompatActivity() {
         binding.btThxBack.setOnClickListener{
             finish()
         }
+
+        //アクションバー
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val result = when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+        return result
     }
 }
 //class MenuThanksActivity : AppCompatActivity() {
