@@ -1,13 +1,16 @@
 package jp.ac.it_college.std.s22028.fragmentsample
 
 import android.view.LayoutInflater
+import android.view.ScrollCaptureCallback
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.it_college.std.s22028.fragmentsample.databinding.ActivityMainBinding
 import jp.ac.it_college.std.s22028.fragmentsample.databinding.MenuRowBinding
 
-class MenuAdapter(private val data: List<Menu>)
-    : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+class MenuAdapter(
+    private val data: List<Menu>,
+    private val callback: (Menu) -> Unit
+    ): RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: MenuRowBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,8 +20,12 @@ class MenuAdapter(private val data: List<Menu>)
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.menuName.text = data[position].name
-        holder.binding.menuPrice.text = "%,d".format(data[position].price)
+        val menu = data[position]
+        holder.binding.apply {
+            menuName.text = data[position].name
+            menuPrice.text = "%,d".format(data[position].price)
+            root.setOnClickListener { callback(menu)}
+        }
     }
 
 
